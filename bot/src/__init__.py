@@ -13,6 +13,9 @@ HANDLERS = {
 class Client(discord.Client):
     async def on_ready(self):
         print("Logged in as %s with id: %s" % (self.user.name, self.user.id))
+        await self.change_presence(
+            status=discord.Status.online, activity=discord.Game("with fire.")
+        )
 
     async def on_message(self, message):
         r = HANDLERS.get(message.content.split(" ")[0].lower())
