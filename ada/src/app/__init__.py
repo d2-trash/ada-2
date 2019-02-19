@@ -1,3 +1,4 @@
+import asyncio
 import urllib
 from base64 import b64encode
 from uuid import uuid4
@@ -19,11 +20,9 @@ with open("secrets/jwt.secret", "r") as f:
     JWT_SECRET = f.read().rstrip("\n")
 
 AUTH_URL = "https://www.bungie.net/en/oauth/authorize"
+REDIS = Redis(host="db", port=6379, db=0)
 
 app = Starlette()
-
-
-r = Redis(host="db", port=6379, db=0)
 
 
 @app.route("/")
@@ -53,5 +52,5 @@ async def bungie_redirect(request):
         },
     )  # TODO: This should be abstracted over
 
-    # r.set()
+    # REDIS.set()
     return JSONResponse({token.get("user"): r.json()})

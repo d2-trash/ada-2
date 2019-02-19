@@ -1,7 +1,7 @@
 import asyncio
 
 import discord
-import event_handlers
+from bot import event_handlers
 
 HANDLERS = {
     "." + key: value
@@ -23,10 +23,3 @@ class Client(discord.Client):
             await r(self, message)
         elif message.content.lower().startswith("good bot"):
             await message.channel.send("Good guardian.")
-
-
-if __name__ == "__main__":
-    with open("discord.secret", "r") as f:
-        secret = f.read().rstrip("\n")
-    client = Client()
-    client.run(secret)

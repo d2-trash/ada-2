@@ -1,5 +1,0 @@
-pyjwt
-redis
-requests
-starlette
-uvicorn

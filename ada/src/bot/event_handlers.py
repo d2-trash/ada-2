@@ -1,8 +1,8 @@
 import jwt
 
-with open("jwt.secret", "r") as f:
+with open("secrets/jwt.secret", "r") as f:
     JWT_SECRET = f.read().rstrip("\n")
-with open("client_id.secret", "r") as f:
+with open("secrets/client_id.secret", "r") as f:
     CLIENT_ID = f.read().rstrip("\n")
 
 

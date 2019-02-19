@@ -1,4 +1,4 @@
-certs = app/src/fullchain.pem app/src/privkey.pem
+certs = ada/src/fullchain.pem ada/src/privkey.pem
 
 .PHONY: install
 install: requirements.txt certs
@@ -15,8 +15,8 @@ run:
 	docker-compose up
 
 .PHONY: test
-test: clean
-	docker-compose up --build --force-recreate
+test:
+	bash -c "trap 'make clean' EXIT; docker-compose up --build --force-recreate"
 
 $(certs):
 	apt-get update
@@ -26,7 +26,7 @@ $(certs):
 	apt-get update
 	apt-get install -y certbot
 	certbot certonly --standalone -n --agree-tos --email samcaccavale@gmail.com -d ada-2.cc -d www.ada-2.cc
-	cp /etc/letsencrypt/live/ada-2.cc/*.pem app/src
+	cp /etc/letsencrypt/live/ada-2.cc/*.pem ada/src
 
 .PHONY: certs
 certs: $(certs)
